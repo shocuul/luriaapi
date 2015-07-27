@@ -1,0 +1,26 @@
+<md-dialog aria-label="Iniciar Sesion">
+  <form name="loginForm">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Inicia Sesion con tu cuenta</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout-pading>
+      <md-input-container>
+        <label>Correo Electronico</label>
+        <input name="email" type="email" required ng-model="newUser.email">
+        <div ng-messages="loginForm.email.$error">
+          <div ng-message="required">Requiere un correo electronico</div>
+          <div ng-message="email">Formato de correo electronico invalido.</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>Contraseña</label>
+        <input type="password" name="password" required ng-model="newUser.password">
+        <div ng-messages="loginForm.password.$error">
+          <div ng-message="required">Require una contraseña</div>
+        </div>
+      </md-input-container>
+      <input type="submit" value="Iniciar Sesion" ng-click="login()">
+    </md-dialog-content>
+  </form>

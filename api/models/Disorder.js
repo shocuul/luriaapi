@@ -8,7 +8,19 @@
 module.exports = {
 
   attributes: {
-
+    name:{
+      type:'string',
+      unique:true,
+      required:true
+    },
+    description:{
+      type:'text',
+      unique:true,
+      required:true
+    },
+    criterion:{
+      collection:'criteria',
+      via:'disorders'
+    }
   }
 };
-

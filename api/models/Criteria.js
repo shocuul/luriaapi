@@ -8,7 +8,14 @@
 module.exports = {
 
   attributes: {
-
+    text:{
+      type:'text',
+      unique:true,
+      required:true
+    },
+    disorders:{
+      collection:'disorder',
+      via:'criterion'
+    }
   }
 };
-
