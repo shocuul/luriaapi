@@ -3,11 +3,12 @@
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Crear una nueva cuenta</h2>
-      </div>
+
       <span flex></span>
       <md-button class="md-icon-button" ng-click="answer('close')">
         <md-icon md-svg-src="/images/delete.svg" aria-label="Close dialog"></md-icon>
       </md-button>
+    </div>
     </md-toolbar>
     <md-dialog-content layout-pading>
       <md-input-container>
@@ -32,7 +33,7 @@
           <div ng-message="required">Require una contraseña</div>
         </div>
       </md-input-container>
-      <input type="submit" value="Crear una cuenta" ng-click="register()">
+      <!-- <input type="submit" value="Crear una cuenta" ng-click="register()"> -->
     </md-dialog-content>
     <div class="md-actions" layout="row">
       <md-button ng-click="hide()" class="md-primary">Cancelar</md-button>
