@@ -11,6 +11,7 @@
     </div>
     </md-toolbar>
     <md-dialog-content layout-pading>
+      {{errors}}
       <md-input-container>
         <label>Nombre</label>
         <input type="text" required name="name" ng-model="newUser.name">
@@ -31,6 +32,13 @@
         <input type="password" name="password" required ng-model="newUser.password">
         <div ng-messages="registerForm.password.$error">
           <div ng-message="required">Require una contraseña</div>
+        </div>
+      </md-input-container>
+      <md-input-container>
+        <label>Repetir la contraseña</label>
+        <input type="password" name="confirmpassword" required ng-model="newUser.confirmPassword">
+        <div ng-messages="registerForm.confirmpassword.$error">
+          <div ng-message="required">Requiere que repitas la contraseña</div>
         </div>
       </md-input-container>
       <!-- <input type="submit" value="Crear una cuenta" ng-click="register()"> -->

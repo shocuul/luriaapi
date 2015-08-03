@@ -51,9 +51,12 @@ angular.module('luria')
       }
 
       $scope.register = function(){
-        Auth.register($scope.newUser).then(function(){
+        Auth.register($scope.newUser).success(function(){
+          console.log("Registrado");
           $mdToast.showSimple('Bienvenido');
           $mdDialog.hide();
+        }).error(function(err){
+          $scope.errors.push(err);
         });
       }
 

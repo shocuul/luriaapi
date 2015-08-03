@@ -48,7 +48,7 @@ angular.module('luria')
       responseError: function(response){
         if(response.status === 401 || response.status == 403){
           LocalService.unset('auth_token');
-          $injector.get('$state').go('anon.login');
+          $injector.get('$state').go('anon.home');
         }
         return $q.reject(response);
       }
