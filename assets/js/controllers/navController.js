@@ -1,5 +1,5 @@
 angular.module('luria')
-  .controller('NavController',function($scope, Auth, CurrentUser, $mdDialog, $mdToast){
+  .controller('NavController',function($scope, Auth, CurrentUser, $mdDialog, $mdToast, $state){
     $scope.auth = Auth;
     $scope.user = CurrentUser.user;
 
@@ -11,6 +11,7 @@ angular.module('luria')
     $scope.logout = function(){
       Auth.logout();
       $mdToast.showSimple('Asta luego.');
+      $state.go('anon.home')
     }
 
     $scope.showRegister = function(ev){

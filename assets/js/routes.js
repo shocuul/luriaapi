@@ -12,5 +12,19 @@ angular.module('luria')
         url:'/',
         templateUrl:'home.html'
       });
+
+      $stateProvider
+        .state('disorder',{
+          abstract: true,
+          template:'<ui-view/>',
+          data:{
+            access: AccessLevels.user
+          }
+        })
+        .state('disorder.show',{
+          url:'/show/:disorderId',
+          templateUrl: 'disorder/show.html',
+          controller: 'ShowDisorderController'
+        });
     $urlRouterProvider.otherwise('/');
   });
