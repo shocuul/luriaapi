@@ -3,7 +3,7 @@ angular.module('luria')
     $scope.auth = Auth;
     $scope.user = CurrentUser.user;
 
-    
+
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };

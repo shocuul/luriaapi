@@ -10,7 +10,7 @@ module.exports = {
 		Disorder.watch(req.socket);
 		Disorder.find({}).exec(function findDisorder(err, foundDisorder){
 			Disorder.subscribe(req.socket, foundDisorder);
-			res.json(foundPosts);
+			res.json(foundDisorder);
 		})
 	}
 };
