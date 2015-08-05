@@ -11,4 +11,31 @@ angular.module('luria')
           throw new Error(data);
         });
     }());
+
+    $scope.showAddCriteriaDialog = function(ev){
+      $mdDialog.show({
+        controller: AddCriteriaController,
+        templateUrl:'/templates/createNewCriteria.html',
+        parent: angular.element(document.body),
+        targetEvent: ev
+      })
+        .then(function(answer){
+          $scope.alert = ' Tu respuesta fue : ' + answer;
+        },function(){
+          $scope.alert = 'Dialogo cancelado';
+        });
+    };
   })
+
+  function AddCriteriaController($scope, $mdDialog, $http){
+    
+    $scope.hide = function () {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function () {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function (answer) {
+        $mdDialog.hide(answer);
+    };
+  }

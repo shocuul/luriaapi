@@ -1,5 +1,5 @@
 angular.module('luria')
-  .controller('NavController',function($scope, Auth, CurrentUser, $mdDialog, $mdToast, $state){
+  .controller('NavController',function($scope, Auth, CurrentUser, $mdDialog, $mdToast, $state,$mdSidenav){
     $scope.auth = Auth;
     $scope.user = CurrentUser.user;
 
