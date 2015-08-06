@@ -77,17 +77,23 @@
               </md-content>
             </md-tab>
             <md-tab label="Criterios">
-              <md-content class="md-padding">
+              <md-content class="md-padding" ng-controller="CriteriaController">
                 <md-input-container>
                   <label>Buscar Criterios</label>
                   <input type="text" nd-model="criteria.search">
                 </md-input-container>
                 <md-input-container>
-                  <md-button class="md-raised md-accent">Agregar Criterio</md-button>
+                  <md-button class="md-raised md-accent" ng-click="showNewCriteria($event)">Agregar Criterio</md-button>
                 </md-input-container>
                 <md-list>
-                  <md-list-item ng-click="">
-                          Item content in list
+                  <md-list-item ng-repeat="criteria in criterion">
+                    <a ng-href="">
+                      <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                          {{criteria.text}}
+                        </div>
+                      </md-item-content>
+                    </a>
                   </md-list-item>
                 </md-list>
               </md-content>
@@ -139,6 +145,7 @@
     <script src="/js/dependencies/angular-messages.js"></script>
     <script src="/js/dependencies/angular-ui-router.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/controllers/criteriaController.js"></script>
     <script src="/js/controllers/disorderController.js"></script>
     <script src="/js/controllers/navController.js"></script>
     <script src="/js/controllers/showDisorderController.js"></script>

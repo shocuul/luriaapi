@@ -35,7 +35,7 @@ angular.module('luria')
     };
 
     function CreateDisorderCtrl($scope, $mdDialog, $http){
-      $scope. errors = [];
+      $scope.errors = [];
 
       $scope.createDisorder = function(newDisorder){
         console.log("Creaste un disorder");
