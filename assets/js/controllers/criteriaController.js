@@ -11,7 +11,7 @@ angular.module('luria')
         .error(function(data, status, headers, jwr){
           throw new Error(data);
         });
-  
+
         $sails.on("criteria", function(message){
           if(message.verb == "destroyed"){
             console.log("destruir");
@@ -23,7 +23,7 @@ angular.module('luria')
 
   $scope.showNewCriteria = function(ev){
     $mdDialog.show({
-      controller: CreateCriteriaCtrl
+      controller: CreateCriteriaCtrl,
       templateUrl: 'templates/createNewCriteria.html',
       parent: angular.element(document.body),
       targetEvent: ev
