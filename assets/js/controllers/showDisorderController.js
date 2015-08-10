@@ -28,7 +28,7 @@ angular.module('luria')
   })
 
   function AddCriteriaController($scope, $mdDialog, $http){
-    
+
     $scope.hide = function () {
         $mdDialog.hide();
     };

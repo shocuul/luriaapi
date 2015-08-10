@@ -26,5 +26,19 @@ angular.module('luria')
           templateUrl: 'disorder/show.html',
           controller: 'ShowDisorderController'
         });
+
+        $stateProvider
+          .state('criteria',{
+            anstract: true,
+            template:'<ui-view/>',
+            data:{
+              access: AccessLevels.user
+            }
+          })
+          .state('criteria.show',{
+            url:'/showCriteria/:criteriaId',
+            templateUrl:'criteria/show.html',
+            controller:'ShowCriteriaController'
+          });
     $urlRouterProvider.otherwise('/');
   });
