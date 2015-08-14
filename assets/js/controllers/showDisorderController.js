@@ -15,7 +15,7 @@ angular.module('luria')
     $scope.showAddCriteriaDialog = function(ev){
       $mdDialog.show({
         controller: AddCriteriaController,
-        templateUrl:'/templates/createNewCriteria.html',
+        templateUrl:'/templates/criteria/create.html',
         parent: angular.element(document.body),
         targetEvent: ev
       })
@@ -27,8 +27,21 @@ angular.module('luria')
     };
   })
 
-  function AddCriteriaController($scope, $mdDialog, $http){
+  function AddCriteriaController($scope, $mdDialog, $http, $sails){
+    $scope.criteriaList = [];
+    $scope.selectedItem = '';
+    (function(){
+      $sails.get("/criteria/")
+        .success(function(data, status, headers, jwr){
+          $scope.criteriaList = data;
+        })
+        .error(function(data, status, headers, jwr){
+          throw new Error(data);
+        });
+    }());
+    $scope.searchTextChange = function(){
 
+    };
     $scope.hide = function () {
         $mdDialog.hide();
     };
