@@ -29,7 +29,6 @@ angular.module('luria')
 
   function AddCriteriaController($scope, $mdDialog, $http, $sails){
     $scope.criteriaList = [];
-    $scope.selectedItem = '';
     (function(){
       $sails.get("/criteria/")
         .success(function(data, status, headers, jwr){
@@ -39,9 +38,10 @@ angular.module('luria')
           throw new Error(data);
         });
     }());
-    $scope.searchTextChange = function(){
-
-    };
+    $scope.selectCriteria = function(criteria){
+      console.log(criteria);
+      $scope.selectedCriteria = criteria;
+    }
     $scope.hide = function () {
         $mdDialog.hide();
     };
