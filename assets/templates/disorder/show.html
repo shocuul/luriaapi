@@ -5,7 +5,11 @@
       <p>{{disorder.description}}</p>
       <md-divider></md-divider>
       <h4 class="md-subtitle">Criterios</h4>
-      {{disorder}}
+      <ol>
+        <li ng-repeat="criteria in disorder.criterion">
+          {{criteria.text}}
+        </li>
+      </ol>
     </md-card-content>
     <div class="md-actions" layout="row" layout-align="end center">
       <md-button ng-click="showAddCriteriaDialog()">Agregar Criterio</md-button>
