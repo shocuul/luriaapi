@@ -1,7 +1,8 @@
 angular.module('luria')
-  .controller('ShowDisorderController', function($scope, $sails, $mdDialog, $stateParams){
+  .controller('ShowDisorderController', function($scope, $sails, $mdDialog, $stateParams, $state, $http, $mdToast){
     console.log($stateParams);
     $scope.disorder = [];
+    $scope.showEdit = false;
     (function(){
         reloadData();
         $sails.on("disorder",function(message){
@@ -36,6 +37,29 @@ angular.module('luria')
         });
     };
 
+    $scope.showDeleteDialog = function(ev){
+      var confirm = $mdDialog.confirm()
+            .title('¿Esta seguro que quiere eliminar el desorden?')
+            .content('Una vez eliminado no podra ser recuperado.')
+            .ariaLabel('Desorden')
+            .ok('Eliminar')
+            .cancel('Cancelar')
+            .targetEvent(ev);
+      $mdDialog.show(confirm).then(function(){
+        var req = {
+          method:'DELETE',
+          url:'/disorder/'+$stateParams.disorderId
+        }
+        $http(req)
+          .success(function(data){
+            $mdToast.showSimple('Desorden Eliminado');
+            $state.go('anon.home');
+          })
+      }, function(){
+        console.log('No eliminar');
+      });
+    }
+
     function AddCriteriaController($scope, $mdDialog, $http, $sails, $mdToast){
       $scope.criteriaList = [];
       (function(){
@@ -62,7 +86,6 @@ angular.module('luria')
           };
           $http(req)
             .success(function(data){
-              $scope.disorder = data;
               $mdDialog.cancel();
             })
             .error(function(data){

@@ -1,5 +1,5 @@
 angular.module('luria')
-  .controller('CriteriaController', function($scope, $sails, $mdDialog){
+  .controller('CriteriaController', function($scope, $sails, $mdDialog,$filter){
     $scope.criterion = [];
 
     (function(){
@@ -14,7 +14,8 @@ angular.module('luria')
 
         $sails.on("criteria", function(message){
           if(message.verb == "destroyed"){
-            console.log("destruir");
+            var index = $filter('getIndex')($scope.criterion,parseInt(message.id, 10));
+            $scope.criterion.splice(index,1);
           }else if(message.verb == "created"){
             $scope.criterion.push(message.data);
           }

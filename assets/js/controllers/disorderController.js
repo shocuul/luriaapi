@@ -1,5 +1,5 @@
 angular.module('luria')
-  .controller('DisorderController', function($scope, $sails, $mdDialog){
+  .controller('DisorderController', function($scope, $sails, $mdDialog, $filter){
     $scope.disorders = [];
     (function(){
       $sails.get("/disorder")
@@ -13,7 +13,8 @@ angular.module('luria')
 
         $sails.on("disorder",function(message){
           if(message.verb == "destroyed"){
-            console.log("destruir");
+            var index = $filter('getIndex')($scope.disorders,parseInt(message.id, 10));
+            $scope.disorders.splice(index,1);
           }else if(message.verb == "created"){
             $scope.disorders.push(message.data);
           }
@@ -68,4 +69,15 @@ angular.module('luria')
       }
     }
 
-  })
+  }).filter('getIndex',function(){
+    return function(input, id){
+      var i = 0,
+          len = input.length;
+      for(;i<len;i++){
+        if(+input[i].id == +id){
+          return i;
+        }
+      }
+      return null;
+    }
+  });
