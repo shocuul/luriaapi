@@ -1,17 +1,26 @@
 angular.module('luria')
   .controller('ShowDisorderController', function($scope, $sails, $mdDialog, $stateParams, $state, $http, $mdToast){
-    console.log($stateParams);
+    //console.log($stateParams);
     $scope.disorder = [];
-    $scope.showEdit = false;
+    $scope.showEdit = true;
     (function(){
         reloadData();
         $sails.on("disorder",function(message){
           if(message.verb=="addedTo"){
             reloadData();
           }
+          if(message.verb=="removedFrom"){
+            reloadData();
+          }
           console.log(message);
         })
     }());
+
+    $scope.toogleEditCriteria = function(){
+      $scope.showEdit = $scope.showEdit === false ? true: false;
+    }
+
+
 
     function reloadData(){
       $sails.get("/disorder/"+$stateParams.disorderId)
@@ -37,6 +46,24 @@ angular.module('luria')
         });
     };
 
+    $scope.editCriteria = function(criteriaData, ev){
+      console.log("Edit Criteria");
+      $mdDialog.show({
+        controller: EditCriteriainDisorderController,
+        templateUrl: '/templates/criteria/edit.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals:{
+          criteria: criteriaData
+        }
+      })
+      .then(function(answer){
+        $scope.alert=answer;
+      },function(){
+        $scope.alert='Cancelado'
+      })
+    }
+
     $scope.showEditCriteriaDialog = function(ev){
       $mdDialog.show({
         controller: EditCriteriaController,
@@ -53,6 +80,28 @@ angular.module('luria')
           $scope.alert = ' Cancelado'
         });
     };
+
+    $scope.deleteRelation = function(criteriaId,ev){
+      var deleteDisorder = $mdDialog.confirm()
+            .title('¿Esta seguro que desea eliminar el criterio de esta desorden?')
+            .content('Solo se eliminara la relacion de estos, si quiere eliminar el criterio por completo, favor de eliminarlo desde su pagina principal(Al hacer esto tambien se eliminara de este desorden psicologico)')
+            .ariaLabel('Eliminar Criterio del Desorden')
+            .ok('Eliminar')
+            .cancel('Cancelar')
+            .targetEvent(ev);
+      $mdDialog.show(deleteDisorder).then(function(){
+        var req = {
+          method:'DELETE',
+          url:'/disorder/'+$stateParams.disorderId+'/criterion/'+criteriaId
+        };
+        $http(req)
+          .success(function(data){
+            $mdToast.showSimple('Criterio eliminado del desorden');
+          })
+      }, function(){
+        console.log("No eliminar criterio");
+      })
+    }
 
     $scope.showDeleteDialog = function(ev){
       var confirm = $mdDialog.confirm()
@@ -77,6 +126,38 @@ angular.module('luria')
       });
     }
 
+    function EditCriteriainDisorderController($scope, $mdDialog, $http, $mdToast, criteria){
+      //console.log(criteria);
+      $scope.newCriteria = criteria;
+
+      $scope.editCriteria = function(criteriaData){
+        console.log(criteriaData);
+        var req = {
+          method:'PUT',
+          url:'/criteria/'+criteriaData.id,
+          data: criteriaData
+        };
+
+        $http(req)
+          .success(function(data){
+            $mdDialog.cancel();
+          })
+          .error(function(data){
+            console.log();
+          });
+      }
+
+      $scope.hide = function () {
+          $mdDialog.hide();
+      };
+      $scope.cancel = function () {
+          $mdDialog.cancel();
+      };
+      $scope.answer = function (answer) {
+          $mdDialog.hide(answer);
+      };
+    }
+
     function EditCriteriaController($scope, $mdDialog, $http, $mdToast, disorder){
       $scope.newDisorder = disorder;
 
@@ -91,10 +172,10 @@ angular.module('luria')
             $mdDialog.cancel();
           })
           .error(function(data){
-            console.log(data);
+            //console.log(data);
           });
       }
-      console.log($scope);
+      //console.log($scope);
       $scope.hide = function () {
           $mdDialog.hide();
       };
@@ -141,7 +222,18 @@ angular.module('luria')
       }
 
       $scope.createCriteria = function(newCriteria){
-
+          var req = {
+            method:'POST',
+            url:'/disorder/'+$stateParams.disorderId+'/criterion/',
+            data: newCriteria
+          };
+          $http(req)
+            .success(function(data){
+              $mdDialog.cancel();
+            })
+            .error(function(data){
+              console.log(data);
+            })
       }
       $scope.hide = function () {
           $mdDialog.hide();

@@ -4,17 +4,28 @@
       <h2 class="md-title">{{disorder.name}}</h2>
       <p>{{disorder.description}}</p>
       <md-divider></md-divider>
-      <h4 class="md-subtitle">Criterios</h4>
-      <ol>
-        <li ng-repeat="criteria in disorder.criterion">
-          <a ng-href="#/showCriteria/{{criteria.id}}">
-            {{criteria.text}}
-          </a>
-        </li>
-      </ol>
+      <h4 ng-if="disorder.criterion.length != 0" class="md-subtitle">Criterios</h4>
+      <md-list ng-if="disorder.criterion.length != 0">
+        <md-list-item ng-repeat="criteria in disorder.criterion" layout="row">
+          <md-item-content layout="row" layout-align="start center">
+            <div class="inset">
+              <a ng-href="#/showCriteria/{{criteria.id}}" layout="column">
+                {{criteria.text}}
+              </a>
+            </div>
+              <md-button ng-hide="showEdit" class="md-icon-button" ng-click="editCriteria(criteria)">
+                <md-icon md-svg-src="/images/edit.svg" aria-label="Editar Criterio" style="width:14px;"></md-icon>
+              </md-button>
+              <md-button  ng-hide="showEdit"class="md-icon-button" ng-click="deleteRelation(criteria.id)">
+                <md-icon md-svg-src="/images/delete.svg" aria-label="Eliminar Criterio" style="width:14px;"></md-icon>
+              </md-button>
+          </md-item-content>
+        </md-list-item>
+      </md-list>
     </md-card-content>
     <div class="md-actions" layout="row" layout-align="end center">
       <md-button ng-click="showAddCriteriaDialog()">Agregar Criterio</md-button>
+      <md-button ng-click="toogleEditCriteria()">Editar Criterios</md-button>
       <md-button ng-click="showEditCriteriaDialog()">Editar Desorden</md-button>
       <md-button ng-click="showDeleteDialog($event)">Eliminar Desorden</md-button>
     </div>

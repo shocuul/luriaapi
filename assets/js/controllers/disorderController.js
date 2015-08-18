@@ -5,7 +5,7 @@ angular.module('luria')
       $sails.get("/disorder")
         .success(function(data, status, headers, jwr){
           $scope.disorders = data;
-          console.log(data);
+          //console.log(data);
         })
         .error(function(data, status, headers, jwr){
           throw new Error(data);
@@ -17,6 +17,9 @@ angular.module('luria')
             $scope.disorders.splice(index,1);
           }else if(message.verb == "created"){
             $scope.disorders.push(message.data);
+          }else if(message.verb == "updated"){
+            var index = $filter('getIndex')($scope.disorders, parseInt(message.id,10));
+            $scope.disorders[index] = message.data;
           }
         })
     }());
@@ -39,7 +42,7 @@ angular.module('luria')
       $scope.errors = [];
 
       $scope.createDisorder = function(newDisorder){
-        console.log("Creaste un disorder");
+        //console.log("Creaste un disorder");
         var req = {
           method: 'POST',
           url:'/disorder/create',
@@ -47,11 +50,11 @@ angular.module('luria')
         };
         $http(req)
           .success(function(data){
-            console.log(data);
+            //console.log(data);
             $mdDialog.cancel();
           })
           .error(function(data){
-            console.log(data);
+            //console.log(data);
           });
 
       }
