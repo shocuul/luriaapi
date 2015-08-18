@@ -37,6 +37,23 @@ angular.module('luria')
         });
     };
 
+    $scope.showEditCriteriaDialog = function(ev){
+      $mdDialog.show({
+        controller: EditCriteriaController,
+        templateUrl:'/templates/disorder/edit.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals:{
+          disorder : $scope.disorder
+        }
+      })
+        .then(function(answer){
+          $scope.alert='Tu respuesta fue: ' + answer;
+        },function(){
+          $scope.alert = ' Cancelado'
+        });
+    };
+
     $scope.showDeleteDialog = function(ev){
       var confirm = $mdDialog.confirm()
             .title('¿Esta seguro que quiere eliminar el desorden?')
@@ -58,6 +75,35 @@ angular.module('luria')
       }, function(){
         console.log('No eliminar');
       });
+    }
+
+    function EditCriteriaController($scope, $mdDialog, $http, $mdToast, disorder){
+      $scope.newDisorder = disorder;
+
+      $scope.editDisorder = function(disorderData){
+        var req = {
+          method: 'PUT',
+          url:'/disorder/'+$stateParams.disorderId,
+          data: disorderData
+        };
+        $http(req)
+          .success(function(data){
+            $mdDialog.cancel();
+          })
+          .error(function(data){
+            console.log(data);
+          });
+      }
+      console.log($scope);
+      $scope.hide = function () {
+          $mdDialog.hide();
+      };
+      $scope.cancel = function () {
+          $mdDialog.cancel();
+      };
+      $scope.answer = function (answer) {
+          $mdDialog.hide(answer);
+      };
     }
 
     function AddCriteriaController($scope, $mdDialog, $http, $sails, $mdToast){

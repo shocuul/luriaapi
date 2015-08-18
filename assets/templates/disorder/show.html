@@ -7,12 +7,15 @@
       <h4 class="md-subtitle">Criterios</h4>
       <ol>
         <li ng-repeat="criteria in disorder.criterion">
-          {{criteria.text}}
+          <a ng-href="#/showCriteria/{{criteria.id}}">
+            {{criteria.text}}
+          </a>
         </li>
       </ol>
     </md-card-content>
     <div class="md-actions" layout="row" layout-align="end center">
       <md-button ng-click="showAddCriteriaDialog()">Agregar Criterio</md-button>
+      <md-button ng-click="showEditCriteriaDialog()">Editar Desorden</md-button>
       <md-button ng-click="showDeleteDialog($event)">Eliminar Desorden</md-button>
     </div>
   </md-card>

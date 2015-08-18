@@ -2,6 +2,19 @@
   <md-card>
     <md-card-content>
       <h2 class="md-title">{{criteria.text}}</h2>
+      <md-divider></md-divider>
+      <h4 class="md-subtitle">Este criterio pertenece a los siguientes desordenes</h4>
+      <ul>
+        <li ng-repeat="disorder in criteria.disorders">
+          <a ng-href="#/show/{{disorder.id}}">
+            {{disorder.name}}
+          </a>
+        </li>
+      </ul>
     </md-card-content>
+    <div class="md-actions" layout="row" layout-align="end center">
+      <md-button ng-click="showDeleteDialog()">Eliminar Criterio</md-button>
+      <md-button ng-click="showEditCriteriaDialog"></md-button>
+    </div>
   </md-card>
 </md-content>
