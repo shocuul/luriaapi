@@ -13,8 +13,8 @@
       </ul>
     </md-card-content>
     <div class="md-actions" layout="row" layout-align="end center">
-      <md-button ng-click="showDeleteDialog()">Eliminar Criterio</md-button>
-      <md-button ng-click="showEditCriteriaDialog"></md-button>
+      <md-button ng-click="showEditCriteriaDialog()" class="md-raised md-accent">Editar Criterio</md-button>
+      <md-button ng-click="showDeleteDialog($event)" class="md-raised md-warn">Eliminar Criterio</md-button>
     </div>
   </md-card>
 </md-content>
