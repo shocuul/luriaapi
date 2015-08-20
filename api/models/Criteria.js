@@ -10,13 +10,9 @@ module.exports = {
   schema: true,
 
   attributes: {
-    uuid: {
-    type: 'string',
-    primaryKey: true,
-    required: true
-  },
+
     text:{
-      type:'text',
+      type:'string',
       unique:true,
       required:true
     },

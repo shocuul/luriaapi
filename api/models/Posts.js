@@ -6,6 +6,7 @@
 */
 
 module.exports = {
+  schema: true,
 
   attributes: {
 
@@ -27,4 +28,3 @@ module.exports = {
     },
   }
 };
-

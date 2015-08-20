@@ -16,7 +16,7 @@ module.exports = {
       required:true
     },
     description:{
-      type:'text',
+      type:'string',
       unique:true
     },
     criterion:{
